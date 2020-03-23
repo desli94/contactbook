@@ -3,9 +3,6 @@ package main
 func main() {
 	contacts := initialize()
 
-	// contacts = contacts.addContact("Desli M")
-	// contacts = contacts.addContact("Ilsed M")
-
 	ft := contact{
 		firstname: "Garet",
 		lastname:  "Bale",

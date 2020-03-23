@@ -16,16 +16,6 @@ type contact struct {
 
 type phonebook []contact
 
-// func initialize() phonebook {
-// 	bs, err := ioutil.ReadFile("phonebook.txt")
-// 	if err != nil {
-// 		fmt.Println("Error: ", err)
-// 		os.Exit(1)
-// 	}
-
-// 	return phonebook(strings.Split(string(bs), ","))
-// }
-
 func initialize() phonebook {
 	phonebook := phonebook{}
 	contact := contact{}
@@ -49,24 +39,6 @@ func initialize() phonebook {
 	return phonebook
 }
 
-// func initialize() phonebook {
-// 	cr7 := contact{
-// 		firstname: "Cristiano",
-// 		lastname:  "Ronaldo",
-// 		email:     "cristiano@ronaldo.com",
-// 		number:    "123456789",
-// 	}
-
-// 	kaka := contact{
-// 		firstname: "Ricardo",
-// 		lastname:  "Kaka",
-// 		email:     "ricardo@kaka.com",
-// 		number:    "987654321",
-// 	}
-
-// 	return phonebook{cr7, kaka}
-// }
-
 func (p *phonebook) addContact(contact contact) {
 	*p = append(*p, contact)
 	(*p).saveToFile("phonebook.txt")
@@ -82,8 +54,6 @@ func (p phonebook) printPhonebook() {
 		fmt.Println("Email:", contact.email)
 		fmt.Println("Number:", contact.number)
 		fmt.Println()
-		// str := fmt.Sprintf("%v", contact)
-		// fmt.Println(str[1 : len(str)-1])
 	}
 }
 
