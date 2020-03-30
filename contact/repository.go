@@ -9,30 +9,6 @@ type repositoryImpl struct {
 	db *sql.DB
 }
 
-// type repoI interface {
-// 	add(contactDTO) (contactDTO, error)
-// }
-
-// func NewRepo() repository {
-// 	return &repositoryImpl{}
-// }
-
-// func (c ContactDTO) toString() string {
-// 	var contactStr string
-// 	var phonebookStr string
-// 	contactStr = c.Firstname + "," + c.Lastname + "," + c.Email + "," + c.Number
-// 	phonebookStr += contactStr + "\n"
-// 	return phonebookStr
-// }
-
-// func (r *repositoryImpl) add(c ContactDTO) (ContactDTO, error) {
-// 	err := ioutil.WriteFile("contacts.txt", []byte(c.toString()), 0666)
-// 	if err != nil {
-// 		return ContactDTO{}, err
-// 	}
-// 	return c, nil
-// }
-
 func NewRepo(db *sql.DB) repository {
 	return &repositoryImpl{db}
 }
