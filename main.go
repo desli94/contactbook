@@ -3,15 +3,17 @@ package main
 import (
 	"fmt"
 	"os"
-	"phonebook/contact"
+	ac "phonebook/adapters/contact"
+	i "phonebook/infrastructure"
+	uc "phonebook/usecases/contact"
 )
 
 func main() {
-	db := contact.NewDB()
-	cr := contact.NewRepo(db)
-	cus := contact.NewUseCase(cr)
+	db := i.NewDB()
+	contactRepo := ac.NewRepo(db)
+	contactInteractor := uc.NewContactInteractor(contactRepo)
 
-	cont, err := cus.Add(contact.ContactDTO{
+	cont, err := contactInteractor.Add(uc.ContactDTO{
 		Firstname: "Ilsed",
 		Lastname:  "M",
 		Email:     "ilsed@m.com",

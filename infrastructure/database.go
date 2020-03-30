@@ -1,4 +1,4 @@
-package contact
+package infrastructure
 
 import (
 	"database/sql"
