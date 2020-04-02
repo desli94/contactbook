@@ -2,7 +2,7 @@ package contact
 
 import (
 	"errors"
-	ec "phonebook/entities/contact"
+	ec "github.com/desli94/contactbook/entities/contact"
 )
 
 type interactor struct {

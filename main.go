@@ -3,11 +3,12 @@ package main
 import (
 	"fmt"
 	"os"
-	ac "phonebook/adapters/contact"
 
-	// ec "phonebook/entities/contact"
-	i "phonebook/infrastructure"
-	uc "phonebook/usecases/contact"
+	ac "github.com/desli94/contactbook/adapters/contact"
+
+	// ec "github.com/desli94/contactbook/entities/contact"
+	i "github.com/desli94/contactbook/infrastructure"
+	uc "github.com/desli94/contactbook/usecases/contact"
 )
 
 func main() {

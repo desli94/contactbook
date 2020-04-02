@@ -1,7 +1,7 @@
 package contact
 
 import (
-	ec "phonebook/entities/contact"
+	ec "github.com/desli94/contactbook/entities/contact"
 )
 
 // Repository interface specifies the functions to be implemented by contact repository

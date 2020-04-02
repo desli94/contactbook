@@ -3,8 +3,8 @@ package contact
 import (
 	"database/sql"
 	"fmt"
-	ec "phonebook/entities/contact"
-	uc "phonebook/usecases/contact"
+	ec "github.com/desli94/contactbook/entities/contact"
+	uc "github.com/desli94/contactbook/usecases/contact"
 )
 
 type repositoryImpl struct {
