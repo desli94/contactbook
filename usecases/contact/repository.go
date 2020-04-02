@@ -1,16 +1,14 @@
 package contact
 
-type ContactRepository interface {
-	Add(c ContactDTO) (ContactDTO, error)
-	GetById(id int64) (ContactDTO, error)
-	Update(id int64, newData ContactDTO) (ContactDTO, error)
-	Delete(id int64) (int64, error)
-}
+import (
+	ec "phonebook/entities/contact"
+)
 
-type ContactDTO struct {
-	ID        int64
-	Firstname string
-	Lastname  string
-	Email     string
-	Number    string
+// Repository interface specifies the functions to be implemented by contact repository
+type Repository interface {
+	Add(c ec.Contact) (ec.Contact, error)
+	GetAll() ([]ec.Contact, error)
+	GetByID(id int64) (ec.Contact, error)
+	Update(id int64, newData ec.Contact) (ec.Contact, error)
+	Delete(id int64) (int64, error)
 }

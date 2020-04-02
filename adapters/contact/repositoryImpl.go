@@ -3,6 +3,7 @@ package contact
 import (
 	"database/sql"
 	"fmt"
+	ec "phonebook/entities/contact"
 	uc "phonebook/usecases/contact"
 )
 
@@ -10,52 +11,76 @@ type repositoryImpl struct {
 	db *sql.DB
 }
 
-func NewRepo(db *sql.DB) uc.ContactRepository {
+// NewRepo creates a reposotry which hold the database instance.
+func NewRepo(db *sql.DB) uc.Repository {
 	return &repositoryImpl{db}
 }
 
-func (r *repositoryImpl) Add(c uc.ContactDTO) (uc.ContactDTO, error) {
+func (r *repositoryImpl) Add(c ec.Contact) (ec.Contact, error) {
 	rows := r.db.QueryRow("INSERT INTO contact_cn (firstname_cn, lastname_cn, email_cn, number_cn) VALUES ($1, $2, $3, $4) RETURNING *", c.Firstname, c.Lastname, c.Email, c.Number)
 
-	contact := uc.ContactDTO{}
+	contact := ec.Contact{}
 	err := rows.Scan(&contact.ID, &contact.Firstname, &contact.Lastname, &contact.Email, &contact.Number)
 
 	if err != nil {
 		fmt.Println("yep")
-		return uc.ContactDTO{}, err
+		return contact, err
 	}
 
 	return contact, nil
 }
 
-func (r *repositoryImpl) GetById(id int64) (uc.ContactDTO, error) {
+func (r *repositoryImpl) GetAll() ([]ec.Contact, error) {
+	rows, err := r.db.Query("SELECT * FROM contact_cn ORDER BY id_cn")
+
+	if err != nil {
+		return []ec.Contact{}, err
+	}
+
+	contacts := []ec.Contact{}
+
+	for rows.Next() {
+		contact := ec.Contact{}
+		err = rows.Scan(&contact.ID, &contact.Firstname, &contact.Lastname, &contact.Email, &contact.Number)
+
+		if err != nil {
+			return contacts, err
+		}
+
+		contacts = append(contacts, contact)
+	}
+
+	return contacts, nil
+}
+
+func (r *repositoryImpl) GetByID(id int64) (ec.Contact, error) {
 	rows, err := r.db.Query("SELECT * FROM contact_cn WHERE id_cn=$1", id)
 
 	if err != nil {
-		return uc.ContactDTO{}, err
+		return ec.Contact{}, err
 	}
 
-	contact := uc.ContactDTO{}
+	contact := ec.Contact{}
 	for rows.Next() {
 		err = rows.Scan(&contact.ID, &contact.Firstname, &contact.Lastname, &contact.Email, &contact.Number)
 
 		if err != nil {
-			return uc.ContactDTO{}, err
+			return contact, err
 		}
 	}
 
 	return contact, nil
 }
 
-func (r *repositoryImpl) Update(id int64, newData uc.ContactDTO) (uc.ContactDTO, error) {
+func (r *repositoryImpl) Update(id int64, newData ec.Contact) (ec.Contact, error) {
 	rows := r.db.QueryRow("UPDATE contact_cn SET firstname_cn = $1, lastname_cn = $2, email_cn = $3, number_cn = $4 WHERE id_cn = $5 RETURNING *",
 		newData.Firstname, newData.Lastname, newData.Email, newData.Number, id)
 
-	updatedContact := uc.ContactDTO{}
+	updatedContact := ec.Contact{}
 	err := rows.Scan(&updatedContact.ID, &updatedContact.Firstname, &updatedContact.Lastname, &updatedContact.Email, &updatedContact.Number)
 
 	if err != nil {
-		return uc.ContactDTO{}, err
+		return updatedContact, err
 	}
 
 	return updatedContact, nil
