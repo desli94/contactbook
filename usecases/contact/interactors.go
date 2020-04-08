@@ -2,6 +2,7 @@ package contact
 
 import (
 	"errors"
+
 	ec "github.com/desli94/contactbook/entities/contact"
 )
 

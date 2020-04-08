@@ -1,20 +1,22 @@
 package main
 
 import (
-	"fmt"
-	"os"
+	// "fmt"
+	// "os"
 
+	// ac "github.com/desli94/contactbook/adapters/contact"
+
+	// // ec "github.com/desli94/contactbook/entities/contact"
+	// i "github.com/desli94/contactbook/infrastructure"
 	ac "github.com/desli94/contactbook/adapters/contact"
-
-	// ec "github.com/desli94/contactbook/entities/contact"
 	i "github.com/desli94/contactbook/infrastructure"
 	uc "github.com/desli94/contactbook/usecases/contact"
 )
 
 func main() {
-	db := i.NewDB()
-	contactRepo := ac.NewRepo(db)
-	contactInteractor := uc.NewContactInteractor(contactRepo)
+	// db := i.NewDB()
+	// contactRepo := ac.NewRepo(db)
+	// contactInteractor := uc.NewContactInteractor(contactRepo)
 
 	// cont, err := contactInteractor.Add(ec.Contact{
 	// 	Firstname: "Ilsed",
@@ -23,7 +25,7 @@ func main() {
 	// 	Number:    "123456789",
 	// })
 
-	cont, err := contactInteractor.GetAll()
+	// cont, err := contactInteractor.GetAll()
 
 	// cont, err := contactInteractor.GetByID(5)
 
@@ -36,11 +38,18 @@ func main() {
 	// 	Number:    "0987654321",
 	// })
 
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	os.Exit(1)
+	// }
 
-	fmt.Println(cont)
+	// fmt.Println(cont)
+
+	db := i.NewDB()
+	contactRepo := ac.NewRepo(db)
+	contactInteractor := uc.NewContactInteractor(contactRepo)
+	contactController := ac.NewContactController(contactInteractor)
+
+	i.CreateServer(contactController)
 
 }
