@@ -5,13 +5,6 @@ import (
 	uc "github.com/desli94/contactbook/usecases/contact"
 )
 
-// type contact struct {
-// 	Firstname string `json:"firstname"`
-// 	Lastname  string `json:"lastname"`
-// 	Email     string `json:"email"`
-// 	Number    string `json:"number"`
-// }
-
 type controller struct {
 	Interactor uc.Interactor
 }
@@ -28,10 +21,6 @@ var contactRepo uc.Repository
 func NewContactController(ci uc.Interactor) Controller {
 	return &controller{ci}
 }
-
-// func NewContactController(db *sql.DB) {
-// 	contactRepo = NewRepo(db)
-// }
 
 func (c *controller) Add(firstname string, lastname string, email string, number string) (ec.Contact, error) {
 	var contact ec.Contact
@@ -50,7 +39,6 @@ func (c *controller) Add(firstname string, lastname string, email string, number
 	}
 
 	return addedContact, nil
-	// json.NewEncoder(w).Encode(addedCOntact)
 }
 
 func (c *controller) GetAll() ([]ec.Contact, error) {
@@ -62,17 +50,3 @@ func (c *controller) GetAll() ([]ec.Contact, error) {
 
 	return contacts, nil
 }
-
-// func (c *controll) Add(w http.ResponseWriter, r *http.Request) {
-// 	var c ec.Contact
-// 	json.NewDecoder(r.Body).Decode(&c)
-
-// 	ci := uc.NewContactInteractor(contactRepo)
-// 	addedCOntact, err := ci.Add(c)
-
-// 	if err != nil {
-// 		fmt.Println(err)
-// 	}
-
-// 	json.NewEncoder(w).Encode(addedCOntact)
-// }

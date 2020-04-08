@@ -20,9 +20,6 @@ type contact struct {
 func CreateServer(cc ac.Controller) {
 	e := echo.New()
 
-	// db := NewDB()
-	// ac.NewContactController(db)
-
 	e.POST("/addContact", func(context echo.Context) error {
 		c := new(contact)
 		if err := context.Bind(c); err != nil {
@@ -34,7 +31,6 @@ func CreateServer(cc ac.Controller) {
 			return context.JSON(http.StatusBadRequest, err)
 		}
 		return context.JSON(http.StatusCreated, createdContact)
-		// return cc.Add(context.BIn)
 	})
 	e.GET("/getContacts", func(context echo.Context) error {
 		contacts, err := cc.GetAll()
