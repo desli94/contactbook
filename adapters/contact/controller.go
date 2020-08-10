@@ -13,6 +13,7 @@ type controller struct {
 type Controller interface {
 	Add(firstname string, lastname string, email string, number string) (ec.Contact, error)
 	GetAll() ([]ec.Contact, error)
+	GetByID(id int64) (ec.Contact, error)
 }
 
 var contactRepo uc.Repository
@@ -49,4 +50,14 @@ func (c *controller) GetAll() ([]ec.Contact, error) {
 	}
 
 	return contacts, nil
+}
+
+func (c *controller) GetByID(id int64) (ec.Contact, error) {
+	contact, err := c.Interactor.GetByID(id)
+
+	if err != nil {
+		return contact, err
+	}
+
+	return contact, nil
 }

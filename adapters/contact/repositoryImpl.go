@@ -3,6 +3,7 @@ package contact
 import (
 	"database/sql"
 	"fmt"
+
 	ec "github.com/desli94/contactbook/entities/contact"
 	uc "github.com/desli94/contactbook/usecases/contact"
 )

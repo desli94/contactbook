@@ -2,6 +2,7 @@ package rest
 
 import (
 	"net/http"
+	"strconv"
 
 	ac "github.com/desli94/contactbook/adapters/contact"
 	"github.com/labstack/echo/v4"
@@ -40,6 +41,17 @@ func NewContactRoutes(e *echo.Echo, cc ac.Controller) *echo.Echo {
 		}
 
 		return context.JSON(http.StatusOK, contacts)
+	})
+	e.GET("/getContact/:id", func(context echo.Context) error {
+		id, err := strconv.ParseInt(context.Param("id"), 10, 64)
+		contact, err := cc.GetByID(id)
+
+		if err != nil {
+			return context.JSON(http.StatusBadRequest, err)
+		}
+
+		return context.JSON(http.StatusOK, contact)
+
 	})
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello you")
